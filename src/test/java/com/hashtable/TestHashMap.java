@@ -22,7 +22,7 @@ public class TestHashMap {
     }
 
     @Test
-    public void givenASentence_whenWordsAreAddedToList_ShouldReturnParanoidFrequency(){
+    public void givenASentenceWhenWordsAreAddedToListShouldReturnParanoidFrequency(){
         String sentence = "Paranoids are not paranoid because they are paranoid but because " +
                           "they keep putting themselves deliberately into paranoid avoidable situations";
 
@@ -41,5 +41,27 @@ public class TestHashMap {
         linkedHashMap.linkedList.printNode();
         System.out.println(frequency);
         Assertions.assertEquals(3,frequency);
+    }
+
+    @Test
+    public void givenASentence_whenWordsAreAddedToListAndRemoveWordShouldReturnWordFrequencyNull(){
+        String sentence = "Paranoids are not paranoid because they are paranoid but because they keep putting " +
+                          "themselves deliberately into paranoid avoidable situations";
+
+        LinkedHashMap<String , Integer > linkedHashMap = new LinkedHashMap<>();
+        String[] sentenceToWords = sentence.toLowerCase().split(" ");
+        for (String word : sentenceToWords) {
+            Integer value = linkedHashMap.get(word);
+            if (value == null)
+                value = 1;
+            else
+                value++;
+            linkedHashMap.add(word,value);
+        }
+
+        linkedHashMap.remove("avoidable");
+        Integer frequency = linkedHashMap.get("avoidable");
+        System.out.println(frequency);
+        Assertions.assertNull(frequency);
     }
 }
